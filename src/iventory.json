@@ -1,0 +1,182 @@
+[
+  {
+    "id_tag": "IT-2026-001",
+    "nombre_modelo": "Notebook Dell Latitude 3520",
+    "categoria": "Notebooks",
+    "custodio_asignado": "Carlos Gómez (Sistemas)",
+    "ubicacion_fisica": "Home Office",
+    "estado": "Asignado",
+    "observaciones": "Asignado para trabajo remoto. Incluye cargador y funda corporativa."
+  },
+  {
+    "id_tag": "IT-2026-002",
+    "nombre_modelo": "Notebook Lenovo ThinkPad E14",
+    "categoria": "Notebooks",
+    "custodio_asignado": "Depósito Central",
+    "ubicacion_fisica": "Depósito Central",
+    "estado": "Disponible",
+    "observaciones": "Equipo re-acondicionado, formateado y listo para nueva asignación."
+  },
+  {
+    "id_tag": "IT-2026-003",
+    "nombre_modelo": "Notebook HP ProBook 450 G8",
+    "categoria": "Notebooks",
+    "custodio_asignado": "María Fernández (Contabilidad)",
+    "ubicacion_fisica": "Sucursal Centro",
+    "estado": "En Mantenimiento",
+    "observaciones": "En revisión técnica por falla intermitente en teclado y sobrecalentamiento."
+  },
+  {
+    "id_tag": "IT-2026-004",
+    "nombre_modelo": "Monitor Samsung 24\" F24T350",
+    "categoria": "Monitores",
+    "custodio_asignado": "Juan Pérez (Ventas)",
+    "ubicacion_fisica": "Sucursal Avellaneda",
+    "estado": "Asignado",
+    "observaciones": "Puesto 12 de ventas. Operativo sin observaciones."
+  },
+  {
+    "id_tag": "IT-2026-005",
+    "nombre_modelo": "Monitor LG 27\" 27MK600M",
+    "categoria": "Monitores",
+    "custodio_asignado": "Depósito Central",
+    "ubicacion_fisica": "Depósito Central",
+    "estado": "Dado de Baja",
+    "observaciones": "Pantalla dañada por impacto. Placa lógica irrecuperable. Baja definitiva por rotura."
+  },
+  {
+    "id_tag": "IT-2026-006",
+    "nombre_modelo": "Servidor Dell PowerEdge R740",
+    "categoria": "Servidores",
+    "custodio_asignado": "Área de Infraestructura IT",
+    "ubicacion_fisica": "Sala de Servidores",
+    "estado": "Asignado",
+    "observaciones": "Servidor de base de datos principal. Operativo con RAID 10 activado."
+  },
+  {
+    "id_tag": "IT-2026-007",
+    "nombre_modelo": "Servidor HP ProLiant DL380 Gen10",
+    "categoria": "Servidores",
+    "custodio_asignado": "Área de Infraestructura IT",
+    "ubicacion_fisica": "Sala de Servidores",
+    "estado": "En Mantenimiento",
+    "observaciones": "Reemplazo de fuente redundante de alimentación en proceso de garantía oficial."
+  },
+  {
+    "id_tag": "IT-2026-008",
+    "nombre_modelo": "Switch Cisco Catalyst 2960X",
+    "categoria": "Networking",
+    "custodio_asignado": "Área de Redes",
+    "ubicacion_fisica": "Rack Principal - Depósito Central",
+    "estado": "Asignado",
+    "observaciones": "Switch core de distribución de red local. 48 puertos gigabit."
+  },
+  {
+    "id_tag": "IT-2026-009",
+    "nombre_modelo": "Router MikroTik RB4011iGS+",
+    "categoria": "Networking",
+    "custodio_asignado": "Depósito Central",
+    "ubicacion_fisica": "Depósito Central",
+    "estado": "Disponible",
+    "observaciones": "Equipo de respaldo (backup) preconfigurado para contingencias en sucursales."
+  },
+  {
+    "id_tag": "IT-2026-010",
+    "nombre_modelo": "Impresora Multifunción HP LaserJet Pro M428fdw",
+    "categoria": "Impresoras",
+    "custodio_asignado": "Área de Recursos Humanos",
+    "ubicacion_fisica": "Sucursal Centro",
+    "estado": "Asignado",
+    "observaciones": "Isla de impresión compartida en oficina de RRHH."
+  },
+  {
+    "id_tag": "IT-2026-011",
+    "nombre_modelo": "Impresora Térmica Zebra ZT230",
+    "categoria": "Impresoras",
+    "custodio_asignado": "Depósito Central",
+    "ubicacion_fisica": "Depósito Central",
+    "estado": "En Mantenimiento",
+    "observaciones": "En servicio técnico para sustitución de rodillo y calibración de cabezal térmico."
+  },
+  {
+    "id_tag": "IT-2026-012",
+    "nombre_modelo": "Smartphone Samsung Galaxy A54 5G",
+    "categoria": "Celulares",
+    "custodio_asignado": "Roberto Rossi (Logística)",
+    "ubicacion_fisica": "Sucursal Avellaneda",
+    "estado": "Asignado",
+    "observaciones": "Línea corporativa asignada para coordinación de despachos y entregas."
+  },
+  {
+    "id_tag": "IT-2026-013",
+    "nombre_modelo": "Smartphone Motorola Moto G84",
+    "categoria": "Celulares",
+    "custodio_asignado": "Depósito Central",
+    "ubicacion_fisica": "Depósito Central",
+    "estado": "Disponible",
+    "observaciones": "Línea corporativa de guardia disponible para rotación."
+  },
+  {
+    "id_tag": "IT-2026-014",
+    "nombre_modelo": "Docking Station Dell WD19S",
+    "categoria": "Periféricos",
+    "custodio_asignado": "Ana Belén Martínez (Diseño)",
+    "ubicacion_fisica": "Home Office",
+    "estado": "Asignado",
+    "observaciones": "Incluye transformador original de 130W y cable USB-C."
+  },
+  {
+    "id_tag": "IT-2026-015",
+    "nombre_modelo": "Kit Teclado y Mouse Inalámbrico Logitech MK270",
+    "categoria": "Periféricos",
+    "custodio_asignado": "Depósito Central",
+    "ubicacion_fisica": "Depósito Central",
+    "estado": "Dado de Baja",
+    "observaciones": "Mouse inoperativo por sulfatación de bornes de batería. Dado de baja."
+  },
+  {
+    "id_tag": "IT-2026-016",
+    "nombre_modelo": "UPS APC Smart-UPS 1500VA",
+    "categoria": "Infraestructura",
+    "custodio_asignado": "Área de Infraestructura IT",
+    "ubicacion_fisica": "Sala de Servidores",
+    "estado": "En Mantenimiento",
+    "observaciones": "Cambio programado de banco de baterías agotadas."
+  },
+  {
+    "id_tag": "IT-2026-017",
+    "nombre_modelo": "Tóner HP LaserJet 58A (CF258A)",
+    "categoria": "Insumos",
+    "custodio_asignado": "Depósito Central",
+    "ubicacion_fisica": "Depósito Central",
+    "estado": "Disponible",
+    "observaciones": "Insumo nuevo en caja sellada. Stock mínimo de reposición."
+  },
+  {
+    "id_tag": "IT-2026-018",
+    "nombre_modelo": "Disco Rígido Externo WD Elements 2TB",
+    "categoria": "Periféricos",
+    "custodio_asignado": "Gonzalo López (Auditoría)",
+    "ubicacion_fisica": "Sucursal Centro",
+    "estado": "Asignado",
+    "observaciones": "Utilizado para resguardos locales de auditorías de inventario."
+  },
+  {
+    "id_tag": "IT-2026-019",
+    "nombre_modelo": "Access Point Ubiquiti UniFi AP AC Pro",
+    "categoria": "Networking",
+    "custodio_asignado": "Área de Redes",
+    "ubicacion_fisica": "Sucursal Belgrano",
+    "estado": "Asignado",
+    "observaciones": "Punto de acceso WiFi para salón comercial de ventas."
+  },
+  {
+    "id_tag": "IT-2026-020",
+    "nombre_modelo": "Notebook MacBook Air M2",
+    "categoria": "Notebooks",
+    "custodio_asignado": "Depósito Central",
+    "ubicacion_fisica": "Depósito Central",
+    "estado": "Dado de Baja",
+    "observaciones": "Derrame accidental de líquido sobre placa base. Reparación inviable."
+  }
+]
