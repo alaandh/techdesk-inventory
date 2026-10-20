@@ -6,134 +6,141 @@
 //  Expone o bloquea dinámicamente los botones de control según el estado actual en el ciclo de vida del activo.
 
 export function AssetTable({
-  assets,
+  assets = [],
   assignAsset,
   returnAsset,
   changeAssetStatus,
 }) {
   return (
-    <div className="card shadow-sm mb-5">
-      <div className="card-header bg-primary text-white">
-        <h5 className="mb-0">Listado Maestro de Activos</h5>
+    <div className="asset-table-container">
+      <div className="table-header">
+        <h5>Listado Maestro de Activos</h5>
       </div>
-      <div className="card-body p-0">
-        <div className="table-responsive">
-          <table className="table table-hover table-striped mb-0 align-middle">
-            <thead className="table-dark">
+
+      <div className="table-responsive">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID / Tag</th>
+              <th>Modelo del Equipo</th>
+              <th>Categoría</th>
+              <th>Estado</th>
+              <th>Custodio / Usuario</th>
+              <th>Ubicación Física</th>
+              <th>Observaciones de Falla</th>
+              <th>Acciones Operativas</th>
+            </tr>
+          </thead>
+          <tbody>
+            {!assets || assets.length === 0 ? ( // Manejo de caso cuando no hay activos filtrados
               <tr>
-                <th>ID / Tag</th>
-                <th>Modelo del Equipo</th>
-                <th>Categoría</th>
-                <th>Estado</th>
-                <th>Custodio / Usuario</th>
-                <th>Ubicación Física</th>
-                <th>Observaciones de Falla</th>
-                <th className="text-center">Acciones Operativas</th>
+                <td colSpan="8" className="text-center">
+                  No hay activos registrados en el inventario.
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {assets.length === 0 ? (
-                <tr>
-                  <td colSpan="8" className="text-muted text-center py-4">
-                    No hay activos registrados en el inventario.
-                  </td>
-                </tr>
-              ) : (
-                assets.map((asset) => (
-                  <tr key={asset.id}>
+            ) : (
+              assets.map((asset) => {
+                // Mapeo flexible de propiedades para soportar ambos esquemas de datos
+                const assetId = asset.id_tag || asset.id;
+                const modelo = asset.nombre_modelo || asset.modelo || "-";
+                const categoria = asset.categoria || "General";
+                const estado = asset.estado || "Disponible";
+                const usuario =
+                  asset.custodio_asignado || asset.usuario || "Sin asignar";
+                const ubicacion =
+                  asset.ubicacion_fisica ||
+                  asset.ubicacion ||
+                  "Depósito Central";
+                const observaciones = asset.observaciones || "-";
+
+                const isDeBaja =
+                  estado === "De Baja" || estado === "Dado de Baja";
+                const isEnMantenimiento = estado === "En Mantenimiento";
+
+                return (
+                  <tr key={assetId}>
                     <td>
-                      <span className="badge bg-light text-dark border font-monospace">
-                        {asset.id}
-                      </span>
+                      <span>{assetId}</span>
                     </td>
-                    <td className="fw-semibold">{asset.modelo}</td>
-                    <td>{asset.categoria}</td>
+                    <td>{modelo}</td>
                     <td>
-                      <span
-                        className={`badge w-100 p-2 bg-${
-                          asset.estado === "Disponible"
-                            ? "success"
-                            : asset.estado === "Asignado"
-                              ? "primary"
-                              : asset.estado === "En Mantenimiento"
-                                ? "warning text-dark"
-                                : "danger"
+                      <span>{categoria}</span>
+                    </td>
+                    <td>
+                      <span // Etiqueta de estado con colores dinámicos según el estado del activo
+                        className={`badge ${
+                          estado === "Disponible"
+                            ? "bg-success text-white"
+                            : estado === "Asignado"
+                              ? "bg-primary text-white"
+                              : estado === "En Mantenimiento"
+                                ? "bg-warning text-dark"
+                                : "bg-danger text-white"
                         }`}
                       >
-                        {asset.estado}
+                        {estado}
                       </span>
                     </td>
+                    <td>{usuario}</td>
+                    <td>{ubicacion}</td>
                     <td>
-                      {asset.usuario || (
-                        <em className="text-muted">Ninguno (En Depósito)</em>
-                      )}
-                    </td>
-                    <td>{asset.ubicacion}</td>
-                    <td>
-                      <small className="text-danger fw-medium">
-                        {asset.observaciones || "-"}
-                      </small>
+                      <small>{observaciones}</small>
                     </td>
                     <td>
-                      <div className="d-flex justify-content-center gap-1">
-                        {/* ASIGNAR Y ENTREGA precondicion: Disponible */}
-                        {asset.estado === "Disponible" && (
-                          <button
-                            className="btn btn-sm btn-outline-primary"
-                            onClick={() => assignAsset(asset.id)}
-                          >
-                            Asignar
-                          </button>
-                        )}
-
-                        {/* DEVOLUCIÓN precondicion: Asignado */}
-                        {asset.estado === "Asignado" && (
-                          <button
-                            className="btn btn-sm btn-outline-success"
-                            onClick={() => returnAsset(asset.id)}
-                          >
-                            Devolver
-                          </button>
-                        )}
-
-                        {/* MANTENIMIENTO Y BAJA Precondición: No estar de Baja*/}
-                        {asset.estado !== "De Baja" && (
-                          <>
-                            {asset.estado !== "En Mantenimiento" && (
-                              <button
-                                className="btn btn-sm btn-outline-warning text-dark"
-                                onClick={() =>
-                                  changeAssetStatus(
-                                    asset.id,
-                                    "En Mantenimiento",
-                                  )
-                                }
-                              >
-                                Reparar
-                              </button>
-                            )}
+                      {isDeBaja ? (
+                        <span>Sin acciones</span>
+                      ) : (
+                        <div className="btn-group" role="group">
+                          {/* Botón Asignar */}
+                          {estado === "Disponible" && (
                             <button
-                              className="btn btn-sm btn-outline-danger"
+                              className="btn btn-sm btn-primary"
+                              onClick={() => assignAsset(asset)}
+                            >
+                              Asignar
+                            </button>
+                          )}
+
+                          {/* Botón Devolver */}
+                          {estado === "Asignado" && (
+                            <button
+                              className="btn btn-sm btn-success"
+                              onClick={() => returnAsset(asset)}
+                            >
+                              Devolver
+                            </button>
+                          )}
+
+                          {/* Botón Reparar / Mantenimiento */}
+                          {!isEnMantenimiento && (
+                            <button
+                              className="btn btn-sm btn-warning"
                               onClick={() =>
-                                changeAssetStatus(asset.id, "De Baja")
+                                changeAssetStatus(assetId, "En Mantenimiento")
                               }
                             >
-                              Baja
+                              Mantenimiento
                             </button>
-                          </>
-                        )}
+                          )}
 
-                        {asset.estado === "De Baja" && (
-                          <span className="text-muted small">Sin acciones</span>
-                        )}
-                      </div>
+                          {/* Botón Baja */}
+                          <button
+                            className="btn btn-sm btn-danger"
+                            onClick={() =>
+                              changeAssetStatus(assetId, "De Baja")
+                            }
+                          >
+                            Dar de Baja
+                          </button>
+                        </div>
+                      )}
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+                );
+              })
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );

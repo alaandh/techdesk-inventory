@@ -64,9 +64,28 @@ La aplicacion responde bien con lo desarrolado pude levatarlo desde la terminal 
 problema 1: tuve un bug de la Mutación Masiva (Se cambiaban todos los activos juntos).
 cuando probe la función de cambiar estado a mantenimiento o baja, es un quilombo: se me ponían los 20 equipos "De Baja" al mismo tiempo
 problema 2: Pantalla congelada en blanco (TypeError con .toLowerCase()).
-cuadno quise probar el buscador en tiempo real, la aplicación se colgaba con un error de consola que decía "Cannot read properties of undefined". Esto pasaba porque el filtro intentaba pasar a minúsculas el campo 'usuario' osea undefined.
+cuadno quise probar el buscador en tiempo real, la aplicación se colgaba con un error de consola que decía "Cannot read properties of undefined".
 problema 3: no aparecen los id o tags, tampoco aparecen los nombres del equipo
 
 por lo menos la app ya funciona y es responsiva hasta cierto punto para celularesvoy a tener que implementar otra alternativa, me fijo que surge respecto a que me queda poco tiempo para llegar a objetivo.
 en la consola de cmd del navegador no me salta ningun error tendre que consultarle a la ia de google que esta fallando de mis archivos y que me devuelva sugerencias
 por ahora voy a hacer el commit de la app ya que se pudo desplegar sin problemas.
+
+Bueno actualizando bitacora al final el erro de mutacion era por incompatibilidad de nombres de propiedades, como bien dijo la ia, lo que hacia que no se mostrara el id ni el modelo del equipo,
+cuando le pedi que haga la lista de los 20 activos, utilizo por convenio el snake_case osea el guion bajo _ yo use el . como por ejemplo asset.id, asset.modelo la verdad no me di cuenta. Entonces que hacia
+buscaba la app.jsx con esos nombres y no lo encontraba entonces era tan sencillo como actualizarlos, ademas que esto era el responsable de causar las mutaciones.
+
+otro error que note era que no aparecia el estado y era por un problema de colores con boostrap al darme cuenta, pasando el mouse el estado aparecia pero habia un error con el fondo,
+entonces le di estilos de los mismos colores que aparence los botones:
+  estado === "Disponible"
+  ? "bg-success text-white"
+   : estado === "Asignado"
+    ? "bg-primary text-white"
+   : estado === "En Mantenimiento"
+   ? "bg-warning text-dark"
+ : "bg-danger text-white"
+
+Asi que por aca dejo la prueba tecnica, ya el programa funciona en entorno de cliente, no pude realizar muchos bonus, no trabaje con integracion de plantillas de excel seria una muy buena idea.
+Se me ocurrio el buscador, me hubiera gustado implementar mas cosas por temas de tiempo ya decido presentarla aca, la version de desktop esta finalizada. Es decir la v1 en mi github
+
+Como quiero hacerlo mobile y responsivo voy a pasarle el proyecto a claude para la version de celulares y tablets esa sera la v2 y tal vez la final.

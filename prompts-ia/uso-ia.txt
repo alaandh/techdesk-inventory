@@ -139,4 +139,33 @@ export function AssetTable({ assets, assignAsset, returnAsset, changeAssetStatus
   );
 }
 ```
+3_ Te pase en formato de texto el nombre de los archivos sus componentes de la app que estoy desarrollando, la aplicación compila y levanta de forma estable,
+pero tengo un desajuste visual de renderizado, la tabla no muestra los datos de las columnas ID/Tag ni Modelo del Equipo,
+y hay una falla de mutabilidad de estado cuando cambio una se cambian todas, por ahora solo eso, copilallo verificalo,
+decime donde esta el error y corrige el codigo para que pueda implementarlo
 
+me devolvio: ### Diagnóstico de los Errores
+
+#### 1\. Por qué no se mostraban las columnas **ID / Tag** ni **Modelo del Equipo**
+
+* **Incompatibilidad de nombres de propiedades:** El archivo de datos JSON utiliza las propiedades estándar del modelo de datos (`id_tag`, `nombre_modelo`, `custodio_asignado`, `ubicacion_fisica`).
+* En `AssetTable.jsx` y `App.jsx`, el código buscaba `asset.id` y `asset.modelo`. Al dar ambos `undefined`, la grilla renderizaba celdas vacías.
+
+#### 2\. Por qué ocurría la **Mutación Masiva** (al cambiar uno se cambiaban todos)
+
+* Al presionar las acciones en la tabla, el componente enviaba `asset.id` (cuyo valor era `undefined`).
+* Cuando las funciones `assignAsset`, `returnAsset` o `changeAssetStatus` recibían `id = undefined`, la condición dentro del `.map()` evaluaba `assetItem.id === id`, lo cual se traducía en `undefined === undefined` (**verdadero para los 20 activos de la lista**). Por ende, React actualizaba el estado de todos los ítems simultáneamente.
+* Además, en `returnAsset`, al actualizar el activo no se preservaba el resto del objeto con `{ ...a }`, destruyendo sus demás atributos.
+
+---
+
+### Código Corregido
+
+A continuación tenés la versión corregida de los dos componentes principales:
+
+(CODIGO QUE SE VE EN LAS IMAGENES)
+
+4_ necesito que me generes el contenido para el archivo final README.md de mi repositorio,
+con el objetivo es que el equipo de IT . pueda entender el alcance del proyecto, ver el progreso de este MVP y saber exactamente cómo clonar, instalar y levantar el programa localmente sin dar vueltas.
+
+me devolvio: README.md

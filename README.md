@@ -1,70 +1,115 @@
-# Getting Started with Create React App
+# 📦 TechDesk Inventory — Sistema de Control y Auditoría de Activos IT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**MVP (Producto Mínimo Viable) desarrollado para la Evaluación Técnica Exprés de El Mundo del Juguete S.A.**  
+Sistema web ligero diseñado para gestionar el inventario, las asignaciones, el mantenimiento y la trazabilidad del ciclo de vida de los equipos tecnológicos del departamento de IT.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📋 Alcance del Proyecto y Estado Actual del MVP
 
-### `npm start`
+El sistema resuelve de punta a punta las operaciones fundamentales del pañol de IT mediante una interfaz dinámica y responsiva:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Listado Maestro de Activos (`AssetTable.jsx`):**
+   - Muestra el estado operativo de los equipos con insignias de color (_Disponible_, _Asignado_, _En Mantenimiento_, _De Baja_).
+   - **Control de acciones dinámico:** Expone u oculta botones operativos según la precondición del activo para prevenir errores humanos en la carga.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. **Circuito Operativo Completo (CRUD Controlado):**
+   - **Asignación y Entrega:** Registra la salida de un equipo hacia un custodio/usuario final especificando su ubicación física.
+   - **Devolución / Reingreso:** Remueve al custodio, reubica el equipo en el Depósito Central y lo vuelve a habilitar como _Disponible_.
+   - **Mantenimiento Técnico:** Envía equipos con fallas a _Servicio Técnico_, registrando obligatoriamente la observación del problema.
+   - **Baja Definitiva:** Congela el activo de forma inmutable como _De Baja_ (_Fuera de Circulación_), bloqueando acciones futuras pero conservando el historial.
 
-### `npm test`
+3. **Buscador Reactivo en Tiempo Real (`AssetBrowser.js`):**
+   - Filtrado dinámico multicriterio por **ID/Tag**, **Modelo de equipo** o **Nombre del custodio/usuario**.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. **Registro Inmutable de Auditoría (`AuditTable.jsx`):**
+   - Log cronológico de movimientos que genera un ID de evento único (`MOV-timestamp`), fecha, hora, tipo de operación y detalle descriptivo.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🏗️ Arquitectura y Stack Tecnológico
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Frontend:** React (SPA) bootstrapped con _Create React App_.
+- **Estilos &amp; Layout:** Bootstrap 5 (clases responsivas y diseño adaptable a dispositivos móviles y desktop).
+- **Persistencia de Datos:** `LocalStorage` embebido en el navegador (elimina la complejidad de un backend dedicado y garantiza respuesta inmediata).
+- **Organización Modular:** Pattern de **archivo de barril** (`index.js`) para desacoplar componentes y mantener el punto de entrada (`App.jsx`) limpio.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🔄 Ciclo de Vida del Activo y Reglas de Negocio
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+El sistema implementa 4 estados estrictos con pre y post-condiciones:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Estado                 | Precondición de Ingreso                          | Postcondición / Efecto                                          | Acciones Disponibles                |
+| :--------------------- | :----------------------------------------------- | :-------------------------------------------------------------- | :---------------------------------- |
+| **`Disponible`**       | Equipo sin fallas en Depósito Central.           | Listo para ser entregado.                                       | **Asignar**, **Reparar**, **Baja**  |
+| **`Asignado`**         | Debe estar previamente `Disponible`.             | Registra nombre de usuario y ubicación física.                  | **Devolver**, **Reparar**, **Baja** |
+| **`En Mantenimiento`** | Falla reportada desde `Disponible` o `Asignado`. | Ubicación pasa a _Servicio Técnico_ con motivo obligatorio.     | **Baja**                            |
+| **`De Baja`**          | Equipo obsoleto o con rotura irreparable.        | Se reubica a _Fuera de Circulación_ y se congelan sus acciones. | _Sin acciones (Inmutable)_          |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📁 Estructura del Repositorio
 
-## Learn More
+```text
+techdesk-inventory/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── AssetBrowser.js      # Componente de búsqueda en tiempo real
+│   │   ├── AssetTable.jsx       # Grilla principal con acciones según estado
+│   │   ├── AuditTable.jsx       # Tabla de logs inmutables para auditoría
+│   │   └── index.js             # Archivo de barril (exportación unificada)
+│   ├── data/
+│   │   └── inventory.json       # Semilla inicial con 20 activos de prueba
+│   ├── App.jsx                  # Estado global, lógica de negocio y persistencia
+│   ├── index.css                # Estilos globales
+│   └── index.jsx                # Punto de entrada de React con Bootstrap
+├── package.json
+└── README.md
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🚀 Instrucciones de Instalación y Ejecución Local
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Siga estos pasos para clonar y ejecutar el proyecto en su entorno local:
 
-### Analyzing the Bundle Size
+### Requisitos Previos
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Node.js** (versión 16.x o superior recomendada).
+- **npm** (incluido con Node.js).
 
-### Making a Progressive Web App
+### 1\. Clonar el repositorio
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+git clone [suspicious link removed]
+cd techdesk-inventory
 
-### Advanced Configuration
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 2\. Instalar dependencias
 
-### Deployment
+```
+npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
 
-### `npm run build` fails to minify
+### 3\. Iniciar la aplicación en modo desarrollo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+npm start
+
+```
+
+La aplicación se abrirá automáticamente en [http://localhost:3000](https://www.google.com/url?sa=E&q=http%3A%2F%2Flocalhost%3A3000) en su navegador.
+
+### 4\. Compilar para producción (Opcional)
+
+```
+npm run build
+
+```
+
+Genera los archivos optimizados listos para despliegue en la carpeta `build/`.
