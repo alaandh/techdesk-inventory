@@ -1,5 +1,3 @@
-import React from "react";
-
 // precondicio:
 // Recibe la lista inmutable con el historial de eventos: history.
 // Postcondicion

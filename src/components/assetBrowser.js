@@ -3,7 +3,7 @@
 //  PostCondicion:
 //  Captura el evento onChange del input y actualiza el estado superior de forma síncrona.
 
-export function AssetSearch({ searchTerm, setSearchTerm }) {
+export function AssetBrowser({ searchTerm, setSearchTerm }) {
   return (
     <div className="card mb-4 shadow-sm">
       <div className="card-body">

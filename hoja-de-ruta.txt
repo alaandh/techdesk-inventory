@@ -50,3 +50,23 @@ descarto parte de la estructura de la IA y sigo refactorizando el codigo del com
 Para cumplir con la consigna de auditar el ciclo de vida completo de los bienes, implemento una tabla de logs inmutables:
 precondición: recibe el arreglo de eventos: history que esta en el localStorage.
 - Postcondición: Renderiza cada acción (Asignación, Devolución, Mantenimiento, Baja) registrando automáticamente un ID de movimiento único, el ID del activo, la fecha, la hora y las observaciones ingresadas.
+
+6. COMO PENSÉ LA ESTRUCTURA DE LA APP (punto de entrada)
+Para que el código no sea un masacote de líneas imposible de leer o de mantener, decidí aplicar un patrón de diseño avanzado en React dividiendo la aplicación por capas reales:
+
+-El archivo de barril: Para que las importaciones no sean un quilombo de rutas en el archivo principal, arme un sistema modularizado de los componentes para que sea facil importarlos
+-Configuré a 'App.jsx' como punto de entrada. Decidí que toda la lógica pesada de la bd (leer y escribir en el localStorage(bd embebida)), las precondiciones se procesen acá arriba.
+-Los componentes independientes, los pensé como componentes visuales. Su único trabajo es recibir la data limpia que les pasa la app.jsx a través de las props y pintarla de forma responsiva con Bootstrap. (con estilos predefinidos, seguro lo cambio mas adelante.)
+
+Esta organización por niveles evita la duplicación de código, y tambien me permitió resolver bugs en minutos (Divide and Conquer) y como dije antes garantiza que el sistema sea modular, prolijo y fácil de escalar.
+
+La aplicacion responde bien con lo desarrolado pude levatarlo desde la terminal pero desde ya iniciarla me di cuenta de los siguiente problemas
+problema 1: tuve un bug de la Mutación Masiva (Se cambiaban todos los activos juntos).
+cuando probe la función de cambiar estado a mantenimiento o baja, es un quilombo: se me ponían los 20 equipos "De Baja" al mismo tiempo
+problema 2: Pantalla congelada en blanco (TypeError con .toLowerCase()).
+cuadno quise probar el buscador en tiempo real, la aplicación se colgaba con un error de consola que decía "Cannot read properties of undefined". Esto pasaba porque el filtro intentaba pasar a minúsculas el campo 'usuario' osea undefined.
+problema 3: no aparecen los id o tags, tampoco aparecen los nombres del equipo
+
+por lo menos la app ya funciona y es responsiva hasta cierto punto para celularesvoy a tener que implementar otra alternativa, me fijo que surge respecto a que me queda poco tiempo para llegar a objetivo.
+en la consola de cmd del navegador no me salta ningun error tendre que consultarle a la ia de google que esta fallando de mis archivos y que me devuelva sugerencias
+por ahora voy a hacer el commit de la app ya que se pudo desplegar sin problemas.
