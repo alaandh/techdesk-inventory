@@ -1,0 +1,142 @@
+Utilize Google notebook porque es una ia que crea un ambiente cerrado, ademas para no estar escribiendo mucho codigo o por ejemplo los activos es super util la herramienta, no saca 
+information de internet sino que se basa directamente en el pdf de las consignas aca estan los prompts:
+
+1_ generame un archivo de datos iniciales ficticios para el inventario de it. Genera un archivo de estructura JSON limpia que contenga 20 activos de it ficticios como los que estan en las categorias, cada registro debe cumplir con los campos requeridos en el punto 2 del documento. acordate tambien de de poner un campo de observaciones, para cuando el equipo esté en mantenimiento o de baja. Devolveme solo el código JSON estructurado listo para usar.
+me devolvio: el archivo .json
+
+2_ Necesito que me completes el desarrollo del componente de react que te voy a pasar, se llama assetTable.jsx y renderiza la tabla de inventario activos de la empresa
+ahora te tocaria hacer el .map mapea la lista de activos y renderiza los botones interactivos según el ciclo de vida de cada equipo. tambien hace la desestructuración de las props, no cambies la firma de la funcion:
+si el estado es Disponible únicamente debe estar el botón de Asignar que use assignAsset.
+Si el estado esta en Asignado el botón de Devolver que use returnAsset.
+Si el estado NO es De Baja,  mostra los botones de Reparar si no está en mantenimiento y Baja que usen changeAssetStatus.
+Si el estado es De Baja, deshabilita todas las acciones y muestra un texto que diga 'Sin acciones'.
+
+Usa las clases responsivas y bordes limpios de Bootstrap que ya inicié en la estructura.
+
+export function AssetTable({ assets, assignAsset, returnAsset, changeAssetStatus }) {
+  return (
+    <div className="card shadow-sm mb-5">
+      <div className="card-header bg-primary text-white">
+        <h5 className="mb-0">Listado Maestro de Activos</h5>
+      </div>
+      <div className="card-body p-0">
+        <div className="table-responsive">
+          <table className="table table-hover table-striped mb-0 align-middle">
+            <thead className="table-dark">
+              <tr>
+                <th>ID / Tag</th>
+                <th>Modelo del Equipo</th>
+                <th>Categoría</th>
+                <th>Estado</th>
+                <th>Custodio / Usuario</th>
+                <th>Ubicación Física</th>
+                <th>Observaciones de Falla</th>
+                <th className="text-center">Acciones Operativas</th>
+              </tr>
+            </thead>
+
+me devolvio: el codigo con bugs visuales que rompia el diseño adaptativo y problemas de logica
+
+Aquí tenés el código completo del componente **AssetTable.jsx** listo para usar, manteniendo la firma de la función, desestructurando las propiedades de cada activo y aplicando las reglas de negocio del ciclo de vida junto con clases responsivas de Bootstrap.
+
+```
+import React from 'react';
+
+export function AssetTable({ assets, assignAsset, returnAsset, changeAssetStatus }) {
+  return (
+    <div>
+      <div>
+        <h5>Listado Maestro de Activos</h5>
+      </div>
+      <div>
+        <div>
+          
+              {assets &amp;&amp; assets.length &gt; 0 ? (
+                assets.map((asset) =&gt; {
+                  // Desestructuración de los campos del activo
+                  const {
+                    id_tag,
+                    nombre_modelo,
+                    categoria,
+                    estado,
+                    custodio_asignado,
+                    ubicacion_fisica,
+                    observaciones,
+                  } = asset;
+
+                  // Evaluaciones de estado para la lógica de los botones
+                  const isDeBaja = estado === 'De Baja' || estado === 'Dado de Baja';
+                  const isEnMantenimiento = estado === 'En Mantenimiento';
+
+                  return (
+                    
+                  );
+                })
+              ) : (
+                
+              )}
+            <table>
+            <thead>
+              <tr>
+                <th>ID / Tag</th>
+                <th>Modelo del Equipo</th>
+                <th>Categoría</th>
+                <th>Estado</th>
+                <th>Custodio / Usuario</th>
+                <th>Ubicación Física</th>
+                <th>Observaciones de Falla</th>
+                <th>Acciones Operativas</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+                      <td>{id_tag}</td>
+                      <td>{nombre_modelo}</td>
+                      <td>
+                        <span>{categoria || 'General'}</span>
+                      </td>
+                      <td>
+                        <span>
+                          {estado}
+                        </span>
+                      </td>
+                      <td>{custodio_asignado || 'Sin asignar'}</td>
+                      <td>{ubicacion_fisica || 'Depósito'}</td>
+                      <td>{observaciones || '-'}</td>
+                      <td>
+                        {isDeBaja ? (
+                          <span>Sin acciones</span>
+                        ) : (
+                          <div>
+                            {/* Botón Asignar: Solo si está Disponible */}
+                            {estado === 'Disponible' &amp;&amp; (
+                              
+                            )}
+
+                            {/* Botón Devolver: Solo si está Asignado */}
+                            {estado === 'Asignado' &amp;&amp; (
+                              
+                            )}
+
+                            {/* Botón Reparar: Si NO está de Baja ni en Mantenimiento */}
+                            {!isEnMantenimiento &amp;&amp; (
+                              
+                            )}
+
+                            {/* Botón Baja: Disponible mientras el estado NO sea De Baja */}
+                            
+                          </div>
+                        )}
+                      </td>
+                    </tr><tr>
+                  <td colspan="8">
+                    No hay activos registrados en el inventario.
+                  </td>
+                </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+

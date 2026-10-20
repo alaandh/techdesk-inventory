@@ -26,3 +26,27 @@ Devolver:
 Dar de baja:
 - precondicion: se ejecuta cuando uno quiere excepto si ya esta de baja.
 - postcondición: el sistema le pide al operador escribir una obnservacion detallada con la falla. Si se envía a reparación, pasa a Mantenimiento y su ubicación cambia a Servicio Técnico. si se descarta, pasa a de Baja y se deshabilitan los botones.
+
+3. Buscador y filtro
+Para optimizar el ux del personal de IT, programo una barra de filtrado reactivo en el componente AssetBrowser:
+Precondición:recibe el estado del texto: searchTerm y su función modificadora setSearchTerm desde la componente de estado superior.
+Postcondición: sincroniza en tiempo real el valor del input con el estado superior del sistema. El listado maestro se filtra, permitiendo búsquedas concurrentes por el ID, modelo del equipo o el name del custodio actual.
+SI la búsqueda no lo encuentra la grilla captura lo captura en un array vacío y renderiza un mensaje que dice "No hay activos registrados con esos criterios".
+
+4. CRUD: COMO LO PENSE / Le pedi ayuda con el crud a gemini (me sirvio para orientarme, tiraba errores)
+
+CÓMO PENSÉ EL CIRCUITO
+Cuando analicé el desafío, me di cuenta de que un CRUD tradicional de "crear y borrar botones sin control" no sirve para un pañol de IT real. Si cualquiera puede tocar cualquier cosa, el inventario se vuelve un quilombo. Por eso, diseñé la lógica pensando en la comodidad del operario y en la seguridad de los datos
+En lugar de saturar la pantalla con opciones o formularios, decidí que la interfaz hable por sí misma. Si un equipo ya está asignado a un empleado, el botón de Asignar directamente desaparece y se muestra el de Devolver. De esta forma, el usuario no tiene forma física de mandarse un error operativo.
+
+El "Borrado" es una baja: Si una notebook se rompe del todo, el sistema la da "De Baja". El equipo sigue figurando en la lista para que sepamos qué pasó con él, pero se le congelan los botones para siempre. Queda como un registro inmutable.
+Para acelerar el desarrollo del MVP y no perder tiempo maquetando ventanas modales complejas que ralentizan la app, decidí utilizar los diálogos nativos del navegador (prompts y alerts). Resuelven la captura del nombre del custodio, la ubicación y el motivo de la falla en una sola línea de código, garantizando un flujo rápido, limpio y libre de bugs visuales.
+
+Correccion a la ia en el componente assetTable:
+La IA hizo un bug crítico de sintaxis al desestructurar el modelo de datos fuera del scoope del mapeo del DOM, además de romper la estructura de la tabla HTML y omitir las clases responsivas de Bootstrap.
+descarto parte de la estructura de la IA y sigo refactorizando el codigo del componente para restaurar el renderizado correcto del tbody, siguiendo con el control de las pre y postcondiciones.
+
+5. Sistema de Auditoría y Control de Movimientos
+Para cumplir con la consigna de auditar el ciclo de vida completo de los bienes, implemento una tabla de logs inmutables:
+precondición: recibe el arreglo de eventos: history que esta en el localStorage.
+- Postcondición: Renderiza cada acción (Asignación, Devolución, Mantenimiento, Baja) registrando automáticamente un ID de movimiento único, el ID del activo, la fecha, la hora y las observaciones ingresadas.
