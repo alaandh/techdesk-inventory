@@ -1,0 +1,28 @@
+Voy a armar una SPA (single page aplication) usando React con el lenguaje js, como base de datos voy a usar el localStorage porque elimina la necesidad de configurar y mantener una bd dedicada, procesando toda la lógica en el navegador del cliente.
+Esto hace que sea mas liviano, optimizando los tiempos de respuesta. Es cierto que tiene un alcanze limitado en cuanto a memoria, Tambien voy a usar el framework Bootstrap para diseñar el programa,
+el MVP va a tener una interfaz adaptativa o responsiva, para que se adapte de forma nativa a celulares, tablets, pc, etc.
+
+la app tiene que estar modularizada para control de errores, cada funcion debe tener sus pre y post condiciones,
+
+1. Estados de Activos
+Para estructurar los bienes de la empresa, defino los 4 estados:
+- DISPONIBLE: El activo se encuentra físicamente en el deposito, listo para ser entregado a cualquier empleado o sucursal.
+- ASIGNADO: El activo se entrgo al user, en este estado, el registro tiene que guardar el nombre del custodio y su ubicación.
+- EN MANTENIMIENTO: El activo tiene una falla o lo están revisando. pasa para el servicio tecnico.
+- DE BAJA: El activo quedo obsoleto, roto o descartado definitivamente. wueda afuera.
+
+2. Hacer el crud
+programo las siguientes reglas para cada logica:
+
+Asignar y entregar:
+- precondicion: El activo DEBE estar disponible.
+- postcondición: Se solicita el nombre del empleado y su ubicacion. El estado de activo cambia a Asignado.
+- errores: el modal bloquea y no muestra el botón de asignar si el equipo ya esta en uso, en reparación o de baja.
+
+Devolver:
+-precondicion: El activo DEBE estar en Asignado.
+-postcondicion: cuando se devuelve, el sistema limpia el name, reubica el equipo en el deposito  y cambia su estado a Disponible.
+
+Dar de baja:
+- precondicion: se ejecuta cuando uno quiere excepto si ya esta de baja.
+- postcondición: el sistema le pide al operador escribir una obnservacion detallada con la falla. Si se envía a reparación, pasa a Mantenimiento y su ubicación cambia a Servicio Técnico. si se descarta, pasa a de Baja y se deshabilitan los botones.

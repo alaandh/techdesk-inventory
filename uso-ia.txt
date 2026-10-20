@@ -1,0 +1,4 @@
+Utilize Google notebook porque es una ia que crea un ambiente cerrado, ademas para no estar escribiendo mucho codigo o por ejemplo los activos es super util la herramienta, no saca 
+information de internet sino que se basa directamente en el pdf de las consignas aca estan los prompts:
+
+1_ generame un archivo de datos iniciales ficticios para el inventario de it. Genera un archivo de estructura JSON limpia que contenga 20 activos de it ficticios como los que estan en las categorias, cada registro debe cumplir con los campos requeridos en el punto 2 del documento. acordate tambien de de poner un campo de observaciones, para cuando el equipo esté en mantenimiento o de baja. Devolveme solo el código JSON estructurado listo para usar.
